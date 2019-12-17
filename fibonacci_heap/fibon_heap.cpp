@@ -92,32 +92,41 @@ FibHeap<dataT, countT>::pop() {
     FibNode<dataT, countT> * top_node = this->top_node;
     FibNode<dataT, countT> * child = top_node->child;
     countT child_num = top_node->children_num;
-    // std::cout << child_num << "here---";
+    // std::cout << child_num << "here---\n";
     while (child_num > 0) {
         --child_num;
-        
+
         //update parent
         child->parent = nullptr;
-
-        //update child before moving the current child to root_list
         child = child->right;
-
-        //move current child to root_list
-        child->left->merge_list(this->root_list);
-
-        // update tree_num
-        ++this->tree_num;
     }
+    // child->display_list();
+    // std::cout << "\nbeforehere\n" << this->tree_num << std::endl;
+    //merge child_list to root_list
+    if (this->top_node->children_num > 0) child->merge_list(this->root_list);
+    // update tree_num
+    this->tree_num += top_node->children_num;
 
+    // this->root_list->display_list();
+    // std::cout << "\nbeforehere\n" << this->tree_num << std::endl;
     //remove top_node from the root_list
     //update root_list (in case root_list point to top_node)
     this->root_list = top_node->remove_from_list();
+
+    // this->root_list->display_list();
+    // std::cout << "\nbeforehere\n" << this->tree_num << std::endl;
+    // std::cout << "here---";
     delete top_node;
     --this->tree_num;
-
+    if (this->tree_num == 0) {
+        this->top_node = nullptr;
+    } else {
+        this->consolidate();
+    }
+    // std::cout << "here---";
     //consolidate
-    this->consolidate();
-
+    
+    // std::cout << "here---";
     //update node_num    
     --this->node_num;
 }
@@ -127,15 +136,16 @@ template<typename dataT, typename countT>
 void
 FibHeap<dataT, countT>::consolidate() {
     // bound of child num: log2(node_num)
-    countT max_child_num = (countT) log2((double) this->node_num) + 1;
+    countT max_child_num = (countT) log2((double) this->node_num) + 2;
     // std::cout << "max child num: " << max_child_num << std::endl;
+    // std::cout << "here---";
     /*
     tree_array: to keep tract of tree with their child_nums,
     store tree pointers indexed by their child_num
-
+    
     */
     FibNode<dataT, countT> ** tree_array =  new FibNode<dataT, countT>*[max_child_num];
-    for (countT i = 0; i <= max_child_num; ++i) {
+    for (countT i = 0; i < max_child_num; ++i) {
         tree_array[i] = nullptr;
     }
     // top_node might be deleted by the time consolidate is called
@@ -173,19 +183,22 @@ FibHeap<dataT, countT>::consolidate() {
             tree_array[child_num] = nullptr;
             ++child_num;
         }
-
+        // std::cout << "here---";
         tree_array[child_num] = current_tree;
 
         //update heap min
         if (cmp_node(this->top_node, current_tree))
             this->top_node = current_tree;
-
+        // std::cout << "here---";
         //update current tree for the next iteration
         current_tree = next_tree;
     }
+    // std::cout << "here---";
     // std::cout << "final child num" << this->tree_num;
     this->root_list = this->top_node;
-    delete tree_array;
+    // std::cout << "here---";
+    delete [] tree_array;
+    // std::cout << "here---";
 }
 
 

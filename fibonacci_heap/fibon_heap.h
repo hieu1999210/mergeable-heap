@@ -1,7 +1,7 @@
 #ifndef fibon_heap__
 #define fibon_heap__
 #include "fib_node.h"
-template<typename dataT, typename countT>
+template<typename dataT>
 bool 
 cmp___(const dataT & left, const dataT & right) {return left < right;};
 
@@ -18,8 +18,8 @@ FibHeap {
             return cmp(*(left->data), *(right->data));
         }
 
-        void
-        consolidate();
+        // void
+        // consolidate();
 
         /* cut a node from its parent and move to root_list
         Note: ensure that the node is not in the roots list */
@@ -81,6 +81,9 @@ FibHeap {
 
         void 
         display();
+
+        void
+        consolidate();
         // void
         // delete_node(FibNode<dataT, countT> * node);
 };

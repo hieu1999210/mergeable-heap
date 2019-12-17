@@ -12,14 +12,14 @@ class Data {
             this->value = value;
         }
         void display() {
-            std::cout << " [key: " << key 
+            std::cout << "[key: " << key 
                       << ", value: " << value
-                      << "]  ";
+                      << "]";
         }
         friend std::ostream& operator<<(std::ostream& os, const Data& data) {
-            os << " [key: " << data.key 
+            os << "(key: " << data.key 
                << ", value: " << data.value
-               << "]  ";
+               << ")";
             return os;
         }
 };

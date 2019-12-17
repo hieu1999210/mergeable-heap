@@ -70,8 +70,8 @@ FibNode<dataT, countT>::remove_from_list() {
 template<typename dataT, typename countT>
 void 
 FibNode<dataT, countT>::display_list() {
-    FibNode <dataT> * head = this;
-    FibNode <dataT> * current = this;
+    FibNode <dataT,countT> * head = this;
+    FibNode <dataT,countT> * current = this;
     do {
         current->display_node();
         current = current->right;
@@ -88,10 +88,11 @@ FibNode<dataT, countT>::display_tree() {
     if (this->child) {
         FibNode<dataT, countT> * current = this->child;
         FibNode * first_child = current;
-
+        std::cout << "[";
         do {
             current->display_tree();
             current = current->right;
         } while (current != first_child);
+        std::cout << "]";
     }
 }

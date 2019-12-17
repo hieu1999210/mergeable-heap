@@ -1,12 +1,8 @@
 #include <iostream>
 #include "data.h"
-#include "fib_node.h"
-#include <string>
-#include <queue>
-#include <vector>
-#include <typeinfo>
-#include "fibon_heap.h"
-template<typename dataT, typename countT>
+#include "fibonacci_heap/fibon_heap.h"
+
+template<typename dataT>
 bool cmp(const dataT & first, const dataT & second) {
     return first < second;
 }
@@ -21,31 +17,47 @@ main () {
     // int * c = &a;
     // int * d = &b;
     // cmp<int>(*c, *d);
-    FibHeap<int> heap, heap2;
-    FibNode<int>* a[7];
-    a[1] = heap.push(1);
-    a[2] = heap.push(2);
-    a[3] = heap.push(3);
+    // FibHeap<int> heap, heap2;
+    // FibNode<int>* a[9];
+    // a[1] = heap.push(1);
+    // a[2] = heap.push(4);
+    // a[3] = heap.push(1);
     // heap.consolidate();
-    a[4] = heap.push(4);
-    a[5] = heap.push(5);
-    // a[6] = heap.push(6);
+    // a[4] = heap.push(2);
+    // a[5] = heap.push(1);
+    // a[6] = heap.push(3);
+    // a[7] = heap.push(3);
+    // a[8] = heap.push(2);
     // heap.consolidate();
-    heap.pop();
+    // heap.pop();
     // std::cout << heap.top() << std::endl;
-    heap.change_value(a[1], 10);
+    // heap.change_value(a[1], 10);
     // std::cout << a[1]->parent;
-    heap.display();
-    std::cout << heap.tree_num;
+    // heap.display();
+    // std::cout << heap.tree_num;
     // Data a("test", 0);
     // std::cout << a;
     // int a=1, b=4;
-    // FibHeap<Data> heap(cmp);
+    FibHeap<Data> heap(cmp);
     // Data a("one", 1);
     // Data b("two", 2);
-    // heap.push(a);
-    // heap.push(b);
+    heap.push(* new Data("one", 1));
+    heap.push(* new Data("two", 4));
+    heap.push(* new Data("three", 1));
+    heap.push(* new Data("four", 2));
+    heap.push(* new Data("five", 1));
+    heap.push(* new Data("six", 3));
+    heap.push(* new Data("seven", 3));
+    heap.push(* new Data("eight", 2));
+    // heap.pop();
     // heap.display();
+    // std::cout << "--------------------\n\n\n";
+    // heap.pop();
+    // heap.push(* new Data("two", 7));
+    heap.consolidate();
+    // heap.consolidate();
+    heap.pop();
+    heap.display();
     // heap.top().display();
     // std::cout << heap.top();
     // std::ios_base::sync_with_stdio(0);
