@@ -3,7 +3,7 @@
 #include <iostream>
 
 /* data container for Fibonacci heap */
-template<typename dataT, typename countT> 
+template<typename dataT, typename countT=int> 
 class
 FibNode {
     private:
